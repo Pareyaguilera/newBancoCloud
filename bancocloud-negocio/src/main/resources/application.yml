@@ -1,0 +1,35 @@
+server:
+  port: 8080 # Este será el puerto principal de tu API
+
+spring:
+  # 1. Conexión a tu Base de Datos RDS en AWS
+  datasource:
+    url: jdbc:mysql://bancocloud-db.cfqs6cqcm0ux.us-east-1.rds.amazonaws.com:3306/bancocloud
+    username: admin
+    password: BancoCloud2026*
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none # Mantiene tus tablas intactas tal como las creamos
+    show-sql: true
+
+  # 2. Conexión a RabbitMQ en tu EC2
+  rabbitmq:
+    host: 32.201.48.30 # La IP de tu máquina en AWS
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        acknowledge-mode: manual # ¡CRUCIAL! Habilita el ACK explícito que pide tu rúbrica
+
+# 3. Configuración Centralizada de Mensajería (Exigencia de la rúbrica)
+bancocloud:
+  rabbitmq:
+    exchange: transferencia.exchange
+    queue:
+      transferencias: transferencia.queue
+      dlq: transferencia.dlq # Dead Letter Queue para errores
+    routing-key:
+      transferencias: transferencia.routing.key
+      dlq: transferencia.dlq.routing.key
