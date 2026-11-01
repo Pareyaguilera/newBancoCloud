@@ -1,0 +1,48 @@
+<div style="font-family: Arial, sans-serif; background-color: #f4f6f9; min-height: 100vh; padding: 20px;">
+  
+  <!-- Barra de navegación superior -->
+  <div style="display: flex; justify-content: space-between; align-items: center; background-color: #004085; padding: 15px 30px; border-radius: 8px; color: white; margin-bottom: 30px;">
+    <h2 style="margin: 0;">Panel de Cliente - BancoCloud</h2>
+    <button (click)="cerrarSesion()" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+      Cerrar Sesión
+    </button>
+  </div>
+
+  <!-- Formulario de Transferencia -->
+  <div style="max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    <h3 style="text-align: center; color: #333; margin-bottom: 20px;">Realizar Nueva Transferencia</h3>
+
+    <div style="margin-bottom: 15px;">
+      <label style="display: block; font-weight: bold; margin-bottom: 5px;">Cuenta de Origen:</label>
+      <input type="text" [(ngModel)]="transferencia.cuentaOrigen" placeholder="Ej: 123456789" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label style="display: block; font-weight: bold; margin-bottom: 5px;">Cuenta de Destino:</label>
+      <input type="text" [(ngModel)]="transferencia.cuentaDestino" placeholder="Ej: 987654321" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label style="display: block; font-weight: bold; margin-bottom: 5px;">Monto a Transferir:</label>
+      <input type="number" [(ngModel)]="transferencia.monto" placeholder="Ej: 50000" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+    </div>
+
+    <!-- Mensajes de estado -->
+    <div *ngIf="mensajeError" style="color: #dc3545; background-color: #f8d7da; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">
+      {{ mensajeError }}
+    </div>
+    
+    <div *ngIf="mensajeExito" style="color: #155724; background-color: #d4edda; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">
+      {{ mensajeExito }}
+    </div>
+
+    <!-- Botón de envío -->
+    <button 
+      (click)="enviarTransferencia()" 
+      [disabled]="cargando"
+      style="width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 16px; cursor: pointer;">
+      {{ cargando ? 'Procesando...' : 'Confirmar Transferencia' }}
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,41 @@
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f6f9; font-family: Arial, sans-serif;">
+  <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 400px;">
+    <h2 style="text-align: center; color: #333; margin-bottom: 20px;">BancoCloud - Iniciar Sesión</h2>
+    
+    <div style="margin-bottom: 15px;">
+      <label style="display: block; margin-bottom: 5px; font-weight: bold;">Correo (Gmail / Usuario):</label>
+      <input 
+        type="text" 
+        [(ngModel)]="username" 
+        placeholder="ejemplo@correo.com" 
+        style="width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;"
+      >
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <label style="display: block; margin-bottom: 5px; font-weight: bold;">Contraseña:</label>
+      <input 
+        type="password" 
+        [(ngModel)]="password" 
+        placeholder="••••••••" 
+        style="width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;"
+      >
+    </div>
+
+    <div *ngIf="errorMensaje" style="color: #dc3545; margin-bottom: 15px; font-size: 14px; text-align: center;">
+      {{ errorMensaje }}
+    </div>
+
+    <div *ngIf="cargando" style="text-align: center; margin-bottom: 15px; color: #007bff;">
+      Autenticando con AWS Cognito...
+    </div>
+
+    <button 
+      (click)="iniciarSesion()" 
+      [disabled]="cargando"
+      style="width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;"
+    >
+      Ingresar
+    </button>
+  </div>
+</div>

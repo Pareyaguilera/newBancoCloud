@@ -15,7 +15,7 @@ spring:
 
   # 2. Conexión a RabbitMQ en tu EC2
   rabbitmq:
-    host: 32.201.48.30 # La IP de tu máquina en AWS
+    host: 32.200.145.183 # La IP de tu máquina en AWS
     port: 5672
     username: guest
     password: guest
@@ -33,3 +33,9 @@ bancocloud:
     routing-key:
       transferencias: transferencia.routing.key
       dlq: transferencia.dlq.routing.key
+
+# 4. Configuración de AWS Cognito para el Login
+aws:
+  cognito:
+    region: us-east-1
+    clientId: u9h5ftgvkotv3gil802h8vdcq # Reemplaza con tu ID real de Cognito

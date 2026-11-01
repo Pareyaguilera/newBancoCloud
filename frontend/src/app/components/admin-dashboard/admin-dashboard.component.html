@@ -1,0 +1,55 @@
+<div style="font-family: Arial, sans-serif; background-color: #f4f6f9; min-height: 100vh; padding: 20px;">
+  
+  <div style="display: flex; justify-content: space-between; align-items: center; background-color: #343a40; padding: 15px 30px; border-radius: 8px; color: white; margin-bottom: 30px;">
+    <h2 style="margin: 0;">Panel de Administración - BancoCloud</h2>
+    <button routerLink="/admin/rabbitmq" style="background-color: #17a2b8; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-right: 10px;">
+      Administrar RabbitMQ
+    </button>
+    <button (click)="cerrarSesion()" style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+      Cerrar Sesión
+    </button>
+  </div>
+
+  <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    <h3 style="color: #333; margin-bottom: 20px;">Gestión de Transferencias (Módulo RabbitMQ)</h3>
+
+    <div *ngIf="mensajeExito" style="color: #155724; background-color: #d4edda; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+      {{ mensajeExito }}
+    </div>
+
+    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+      <thead>
+        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+          <th style="padding: 12px;">ID</th>
+          <th style="padding: 12px;">Origen</th>
+          <th style="padding: 12px;">Destino</th>
+          <th style="padding: 12px;">Monto</th>
+          <th style="padding: 12px;">Estado</th>
+          <th style="padding: 12px;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tx of transferencias" style="border-bottom: 1px solid #e9ecef;">
+          <td style="padding: 12px;">{{ tx.id }}</td>
+          <td style="padding: 12px;">{{ tx.cuentaOrigen }}</td>
+          <td style="padding: 12px;">{{ tx.cuentaDestino }}</td>
+          <td style="padding: 12px;">${{ tx.monto }}</td>
+          <td style="padding: 12px;">
+            <span [ngStyle]="{'color': tx.estado === 'ANULADA' ? 'red' : 'green', 'font-weight': 'bold'}">
+              {{ tx.estado }}
+            </span>
+          </td>
+          <td style="padding: 12px;">
+            <button *ngIf="tx.estado !== 'ANULADA'" (click)="anular(tx.id)" style="background-color: #ffc107; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+              Anular
+            </button>
+
+          </td>
+        </tr>
+        <tr *ngIf="transferencias.length === 0">
+          <td colspan="6" style="padding: 20px; text-align: center; color: #6c757d;">No hay transferencias registradas.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
